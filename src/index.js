@@ -21,7 +21,7 @@
 
 This is an example application.  It answers the phone.  If your phone number has not
 called before it will read out your phone number to you and then tell you the time
-in UCT.  If you have called before it just tells you the time.
+in UTC.  If you have called before it just tells you the time.
 
 This application uses one SIP Media Appliance (SMA), one SIP Rule, and one Phone Number.
 It uses S3, DynamoDB, Lambda, and Polly services.
@@ -92,7 +92,7 @@ async function newCall(event) {
   let phrase = "";
   const key = callid.toString() + "-" + keybase;
 
-  const timePhrase = "The time is <break/><prosody rate=\"slow\">" + hour + "<break/>" + min + "</prosody><break/>U C T<break/>"
+  const timePhrase = "The time is <break/><prosody rate=\"slow\">" + hour + "<break/>" + min + "</prosody><break/>U T C<break/>"
   const goodbyePhrase = "Goodbye!</speak>";
 
   const knownCaller = await getCaller(from);
@@ -219,7 +219,7 @@ async function getCaller(phonenumber) {
   try {
     const results = await documentClient.get(params).promise();
     console.log("database results: ", results);
-    if (results.phoneNumber == phonenumber) {
+    if (results.Item.phoneNumber == phonenumber) {
       console.log(results);
       return true;
     } else {
