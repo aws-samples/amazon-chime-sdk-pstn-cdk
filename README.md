@@ -12,10 +12,10 @@ from the command line (see below).
 
 This sample app is an example of a Chime SDK telephony application.  It has both the "Infrastructure as Code" and the Application code.  It deploys an AWS allocated 
 [Phone Number](https://docs.aws.amazon.com/chime/latest/ag/phone-numbers.html), creates and configures a [SIP Media Application (SMA)](https://docs.aws.amazon.com/chime/latest/ag/use-sip-apps.html) 
-and a [SIP Rule](https://docs.aws.amazon.com/chime/latest/ag/manage-sip-applications.html).  It then creates a simple IVR application that answers call to 
-the provisioned phone number and tells you the time (in UCT) and then hangs up.  If you have never called the app before, it reads back the
- number you are calling from.  Your phone number is stored in a DynamoDB database.  This app is bare-bones example, but it illustrates how to build Chime SDK applications including detecting
- the number called from, checking if it's a known number, and using [Amazon Polly](https://aws.amazon.com/polly/) to create the voice played back to the caller.
+and a [SIP Rule](https://docs.aws.amazon.com/chime/latest/ag/manage-sip-applications.html).  It then creates a simple IVR application that answers calls to 
+the provisioned phone number and tells you the time (in UTC) and then hangs up.  If you have never called the app before, it reads back the
+ phone number you are calling from.  Your phone number is stored in a DynamoDB database.  This app is a bare-bones example, but it illustrates how to build Chime SDK applications including detecting
+ the number called from, checking if it's a known number, and using [Amazon Polly](https://aws.amazon.com/polly/) to create the voice prompt played back to the caller.
 ## Installing Dependencies
 
 On a clean linux instance, you need to install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html), [jq](https://stedolan.github.io/jq/download/) and 
@@ -28,22 +28,29 @@ npm install -g npm nodejs typescript aws-sdk aws-cdk # installs the necessary mo
 ```
 
 An example of the commands to install on Amazon Linux (or other yum-based linux) is [here](https://github.com/aws-samples/amazon-chime-sdk-pstn-cdk/blob/main/SETUP-DEPS.md).  However, please
-always reference those tools instalation instructions if needed.
+always reference those tools installation instructions if needed.
 ## Configuring your AWS Account
 
 You need to configure your [AWS Account parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) to enable deploying the application.  The easiest way
-to ensure that you have it configured properly do this:
+to ensure that you have it configured properly is to run:
 
 ```bash
 aws sts get-caller-identity
 ```
 
-You should get information about your valid AWS account.  Deploying this demo application will cause your AWS Account to be billed for services, including the Amazon Chime SDK, 
+You should get information about your valid AWS account.  
+
+**Note:** Deploying this demo application will cause your AWS Account to be billed for services, including the Amazon Chime SDK, 
 used by the application.
+
 ## Batteries Included, Just Show Me Already!
 
 Once you have installed the dependencies, if you just want to go for it you can run the "deploy.sh" script.  It will call the make commands to deploy the sample app.  It's output will 
-include the application telephone number.
+include the application telephone number:
+
+```bash
+./deploy.sh
+```
 
 ## Output
 
@@ -66,7 +73,7 @@ Stack ARN:
 arn:aws:cloudformation:us-west-2:<account number>:stack/ChimeSdkPstnCdkStack/919XXe80-4712-11ec-9694-02afe776b4ef
 ```
 
-All you need is the phone number on the line "himeSdkPstnCdkStack.inboundPhoneNumber."  Call that number and the app will respond.
+All you need is the phone number on the line "ChimeSdkPstnCdkStack.inboundPhoneNumber."  Call that number and the app will respond.
 
 ## Customizing For Your Own Use
 
@@ -85,11 +92,11 @@ This section of the README is for information only, and is not needed to just de
 ### AWS CDK
 
 There are three parts to this repo: the CDK automation scripting (in the 'lib' folder), the actual sample application itself (in the 'src' folder, and a CloudFormation Custom Resource Provider (in a parallel folder).
-Please refer to [those docs](https://github.com/aws-samples/amazon-chime-sdk-pstn-provider) for more informatio.
+Please refer to [those docs](https://github.com/aws-samples/amazon-chime-sdk-pstn-provider) for more information.
 ### Custom Provider
 
 This repo requires a parallel repo that contains the [amazon-chime-sdk-pstn-provider](https://github.com/aws-samples/amazon-chime-sdk-pstn-provider) Custom Resource Provider. This may eventually move to become a git submodule, 
-but today the code expects it to be parallel to this repo. If you have placed it in a different folder location, you can make the change in lib/chime_sdk_pstn_cdk-stack.ts to make it work:
+but today the code expects it to be parallel to this repo. If you have placed it in a different folder location, you can make the change in ```lib/chime_sdk_pstn_cdk-stack.ts``` to make it work:
 
 ```typescript
 // default custom provider is in a parallel folder
@@ -116,11 +123,11 @@ specifically excluded the app from the tsc build process via the top level tscon
 ```
 ### Cloud Development Kit (CDK) 
 
-The CDK script is located in the 'lib' folder.  More information on the CDK is available [here](https://aws.amazon.com/cdk/);
+The CDK script is located in the ```lib``` folder.  More information on the CDK is available [here](https://aws.amazon.com/cdk/);
 
 ### Makefile
 
-This repo makes use of "make" and the Makefile is a handy way to handle dependencies and chain outputs to inputs. You are encouraged to read the commands in the 
+This repo makes use of ```make``` and the Makefile is a handy way to handle dependencies and chain outputs to inputs. You are encouraged to read the commands in the 
 [Makefile](https://github.com/aws-samples/amazon-chime-sdk-pstn-cdk/blob/main/Makefile) to understand what commands are available and how they work.  We make
 heavy use of the command line JSON tool [jq](https://stedolan.github.io/jq/) to enable simple automation for many commands.
 ### Node Modules
@@ -148,7 +155,7 @@ make destroy
 
 #### Testing the Lambda Function
 
-To test if the application deployed properly and is responding, you can invoke the lambda function directly (bypassing the SIP Media Appliance) 
+To test if the application deployed properly and is responding, you can invoke the lambda function directly (bypassing the SIP Media Application) 
 with the following command:
 
 ```bash
