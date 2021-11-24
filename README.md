@@ -27,7 +27,7 @@ nvm use 16 # selects it
 npm install -g npm nodejs typescript aws-sdk aws-cdk # installs the necessary modules
 ```
 
-An example of the commands to install on Amazon Linux (or other yum-based linux) is [here](https://github.com/aws-samples/amazon-chime-sdk-pstn-cdk/blob/main/SETUP-DEPS.md).  However, please
+An example of the commands to install on Amazon Linux (or other yum-based linux) is [here](SETUP-DEPS.md).  However, please
 always reference those tools installation instructions if needed.
 ## Configuring your AWS Account
 
