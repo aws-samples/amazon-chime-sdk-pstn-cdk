@@ -29,6 +29,13 @@ npm install -g npm nodejs typescript aws-sdk aws-cdk # installs the necessary mo
 
 An example of the commands to install on Amazon Linux (or other yum-based linux) is [here](SETUP-DEPS.md).  However, please
 always reference those tools installation instructions if needed.
+
+In a directory parallel to where you cloned this repository, you also need to clone the Custom Resource Provider that this template calls to create and destroy Amazon Chime SDK PSTN Audio components.  It is available at:  https://github.com/aws-samples/amazon-chime-sdk-pstn-provider and you can clone it like this:
+
+```bash
+git clone https://github.com/aws-samples/amazon-chime-sdk-pstn-provider
+```
+
 ## Configuring your AWS Account
 
 You need to configure your [AWS Account parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) to enable deploying the application.  The easiest way
