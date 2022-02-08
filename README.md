@@ -1,3 +1,7 @@
+# Deprecated!
+
+This approach has been deprecated by a much more elegant and proper approach:  a proper [CDK construct for Amazon Chime SDK resources.](https://github.com/cdklabs/cdk-amazon-chime-resources).  Instead of this template, use a standard CDK repo and just 'yarn add cdk-chime-resources' (or pip install cdk-chime-resources).
+
 # Amazon Chime SDK PSTN CDK Template 
 
 This repo holds a template for a Chime SDK PSTN application that uses the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/) to automatically manage application
